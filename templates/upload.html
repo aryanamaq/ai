@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Documents - Legal Document Analysis System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Legal Document Analysis System</h1>
+        </div>
+        
+        <div class="nav">
+            <a href="/upload">Documents</a>
+            <a href="/logout">Logout</a>
+        </div>
+        
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+        
+        <div class="card">
+            <h2>Upload Legal Document</h2>
+            <form method="post" enctype="multipart/form-data" action="/upload">
+                <div class="form-group">
+                    <label for="file">Select Word Document:</label>
+                    <input type="file" id="file" name="file" class="form-control" accept=".doc,.docx" required>
+                </div>
+                <button type="submit" class="btn">Upload</button>
+            </form>
+        </div>
+        
+        <div class="card">
+            <h2>Uploaded Documents</h2>
+            {% if documents %}
+            <ul class="document-list">
+                {% for doc in documents %}
+                <li class="document-item">
+                    <div>
+                        <strong>{{ doc.original_filename }}</strong>
+                        <br>
+                        <small>Uploaded: {{ doc.upload_time }}</small>
+                    </div>
+                    <div>
+                        <a href="/review/{{ doc.saved_filename }}" class="btn">Review & Analyze</a>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No documents uploaded yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

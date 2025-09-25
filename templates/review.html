@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Document - Legal Document Analysis System</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Legal Document Analysis System</h1>
+        </div>
+        
+        <div class="nav">
+            <a href="/upload">Documents</a>
+            <a href="/logout">Logout</a>
+        </div>
+        
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+        
+        <div class="card">
+            <h2>Review: {{ filename }}</h2>
+            <div class="form-group">
+                <form method="post" action="/analyze/{{ filename }}">
+                    <label for="domain">Select Domain:</label>
+                    <select id="domain" name="domain" class="form-control">
+                        <option value="Finance and tax">Finance and Tax</option>
+                        <option value="Real Estate and Property">Real Estate and Property</option>
+                    </select>
+                    <button type="submit" class="btn">Analyze & Generate Report</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h3>Document Content</h3>
+            <pre class="document-content">{{ text }}</pre>
+        </div>
+        
+        <div class="card">
+            <a href="/upload" class="btn">Back to Uploads</a>
+        </div>
+    </div>
+    
+    <style>
+        .document-content {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 4px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+    </style>
+</body>
+</html>
